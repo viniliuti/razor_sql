@@ -1,0 +1,47 @@
+﻿@page
+@model WebApplicationRazor.Pages.Car.CarModel
+@{
+}
+<form method="post">
+    @*Teste:
+    <input type="button" />*@
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Doors</th>
+                <th>Color</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.cars != null)
+            {
+                foreach (var car in Model.cars)
+                {
+                    <tr>
+                        <td>@car.Id</td>
+                        <td>@car.Make</td>
+                        <td>@car.Model</td>
+                        <td>@car.Year</td>
+                        <td>@car.Doors</td>
+                        <td>@car.Color</td>
+                        <td>@car.Price</td>
+                        <td>
+                            <!-- <snippet_Edit> -->
+                            <a asp-page="./Edit" asp-route-id="@car.Id">Edit</a> |
+                            <!-- </snippet_Edit> -->
+                            <!-- <snippet_Delete> -->
+                            <button type="submit" asp-page-handler="delete" asp-route-id="@car.Id">delete</button>
+                            <!-- </snippet_Delete> -->
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <a asp-page="Create">Create New</a>
+</form>

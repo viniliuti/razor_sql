@@ -1,0 +1,19 @@
+﻿@page
+@model GuessCarModel
+@{
+    ViewData["Title"] = "Guess the Car!";
+}
+
+<h2>@ViewData["Title"]</h2>
+<li>Guess the car by it's price.</li>
+<li>Fill the field bellow and press 'Try!'</li>
+
+<br/>
+
+<form method="post" asp-page-handler="TryButton">
+    <input asp-for="_price" class="form-control" />
+    <br/>
+    <div class="form-group">
+        <input type="submit" value="Try!" class="btn btn-primary" />
+    </div>
+</form>
