@@ -9,5 +9,6 @@
         public int Doors { get; set; }
         public string Color { get; set; }
         public decimal Price { get; set; }
+		public bool ShowPrice { get; set; }
     }
 }

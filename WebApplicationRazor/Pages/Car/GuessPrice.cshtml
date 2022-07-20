@@ -1,0 +1,48 @@
+﻿@page "{id:int}"
+@model Pages.Car.GuessPriceModel
+
+@{
+    ViewData["Title"] = "Guess Price";
+}
+
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @if (@Model.thisCar != null)
+        {
+            <table class="table">
+                <tr>
+                    <th>@Model.thisCar.Make</th>
+                    <th>@Model.thisCar.Model</th>
+                    <th>@Model.thisCar.Year</th>
+                    <th>@Model.thisCar.Doors</th>
+                    <th>@Model.thisCar.Color</th>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+<form method="post" asp-page-handler="TryButton">
+    <label class="label">What do you think the price of this Car is?</label>
+    <input asp-for="_price" data-val-regex="Must be a valid Integer or Decimal (e.g: ##.01)<br/>"
+        data-val-range="The value must be greater than Zero and smaller than @Decimal.MaxValue<br/>"
+        class="form-control" style="max-width: 25%;" />
+    <span asp-validation-for="_price" class="text-danger"></span>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Try!" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <br />
+    <a asp-page="./Car">Back to List</a>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -22,12 +22,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/GuessCar">Guess Car</a>
-                        </li>
+                            </li> *@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Car/Car">Car</a>
                         </li>
@@ -53,5 +50,6 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("Notyf")
 </body>
 </html>

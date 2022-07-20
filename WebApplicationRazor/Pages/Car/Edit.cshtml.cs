@@ -3,24 +3,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApplicationRazor.Pages.Car
 {
-    public class EditModel : PageModel
-    {
-        [BindProperty]
-        public Models.Car thisCar { get; set; }
+	public class EditModel : PageModel
+	{
+		[BindProperty]
+		public Models.Car? thisCar { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		public IActionResult OnGet(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            var oi = ConstantCar.cars
-                .FirstOrDefault(f => f.Id == id);
+			if (!ConstantCar.cars.Exists(e => e.Id == id))
+				return NotFound();
 
-            thisCar = oi;
+			thisCar = ConstantCar.cars
+				.FirstOrDefault(f => f.Id == id);
 
-            return Page();
-        }
-    }
+			return Page();
+		}
+	}
 }
