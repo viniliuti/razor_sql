@@ -1,55 +1,68 @@
 ﻿@page
 @model WebApplicationRazor.Pages.Car.CarModel
 @{
+    ViewData["Title"] = "Car";
 }
-<form method="post">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Doors</th>
-                <th>Color</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.cars != null)
-            {
-                foreach (var car in Model.cars)
-                {
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div style="position: relative;">
+    <form method="post">
+        @if (Model.cars != null && Model.cars!.Count > 0)
+        {
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@car.Id</td>
-                        <td>@car.Make</td>
-                        <td>@car.Model</td>
-                        <td>@car.Year</td>
-                        <td>@car.Doors</td>
-                        <td>@car.Color</td>
-                        @if (@car.ShowPrice)
-                        {
-                                        <td>@car.Price</td>
-                        }
-                        else
-                        {
-                                    <td>******</td>
-                        }
-                        <td>
-                            <!-- <snippet_Edit> -->
-                    <a asp-page="./Edit" asp-route-id="@car.Id">Edit</a> |
-                            <!-- </snippet_Edit> -->
-                    <a asp-page="./GuessPrice" asp-route-id="@car.Id">Guess Price</a> |
-                            <!-- <snippet_Delete> -->
-                    <button type="submit" asp-page-handler="delete" asp-route-id="@car.Id">delete</button>
-                            <!-- </snippet_Delete> -->
-                    <button type="submit" asp-page-handler="showprice" asp-route-id="@car.Id">Show Price</button>
-                        </td>
+                        <th>Id</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Doors</th>
+                        <th>Color</th>
+                        <th>Price</th>
                     </tr>
-                }
-            }
-        </tbody>
-    </table>
-    <a asp-page="Create">Create New</a>
-    <button type="submit" asp-page-handler="resetcarslist">Reset all changes</button>
-</form>
+                </thead>
+                <tbody>
+
+                    @foreach (var car in @Model.cars)
+                    {
+                        <tr>
+                            <td>@car.Id</td>
+                            <td>@car.Make</td>
+                            <td>@car.Model</td>
+                            <td>@car.Year</td>
+                            <td>@car.Doors</td>
+                            <td>@car.Color</td>
+                            <td>@(car.ShowPrice ? @car.Price : "*****")</td>
+                            <td>
+                                <a asp-page="./Edit" asp-route-id="@car.Id">Edit</a> |
+                                <a asp-page="./GuessPrice" asp-route-id="@car.Id">Guess Price</a> |
+                                <button type="submit" asp-page-handler="delete" asp-route-id="@car.Id">Delete</button>
+                                <button type="submit" asp-page-handler="showprice" asp-route-id="@car.Id">Show Price</button>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h4>There's no Car on the list.</h4>
+            <h4>Please Crate New to list them here.</h4>
+            <br/>
+            <h4>Or click to 'Reset all changes' to rollback to the original Cars list.</h4>
+        }
+
+        <br /><br /><br />
+
+        <a asp-page="./Create" asp-route-id="">Create New</a>
+        <button style="position:absolute; right:10px;" type="submit" asp-page-handler="resetcarslist">Reset all
+            changes</button>
+        <br />
+        <br />
+
+        <a asp-page="../Index">Back to Home Page</a>
+    </form>
+</div>

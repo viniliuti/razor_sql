@@ -7,9 +7,7 @@ namespace WebApplicationRazor.Pages.Car
 	{
 		public List<Models.Car> cars = ConstantCar.cars;
 
-		public void OnGet()
-		{
-		}
+		public void OnGet() { }
 
 		public IActionResult OnPostShowPrice(int? id)
 		{
@@ -20,7 +18,7 @@ namespace WebApplicationRazor.Pages.Car
 				return NotFound();
 
 			var thisCar = ConstantCar.cars.FirstOrDefault(f => f.Id == id);
-			thisCar.ShowPrice = !thisCar.ShowPrice;
+			thisCar!.ShowPrice = !thisCar.ShowPrice;
 			ConstantCar.UpdateCar(thisCar.Id, thisCar);
 
 			return RedirectToPage();
@@ -28,10 +26,19 @@ namespace WebApplicationRazor.Pages.Car
 
 		public IActionResult OnPostResetCarsList()
 		{
-			System.Console.WriteLine("oias");
 			ConstantCar.ResetBaseCars();
 
 			return RedirectToPage();
-        }
+		}
+
+		public IActionResult OnPostDelete(int? id)
+		{
+			if (id == null)
+				return NotFound();
+
+			ConstantCar.DeleteCar(id.Value);
+
+			return RedirectToPage();
+		}
 	}
 }

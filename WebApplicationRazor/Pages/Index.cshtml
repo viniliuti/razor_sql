@@ -4,7 +4,13 @@
     ViewData["Title"] = "Home page";
 }
 
+<h1>@ViewData["Title"]</h1>
+<hr />
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Hello!</h1>
+    <h4>This is a simple Razor project that's using a List of Cars in memory, for basic CRUD methods.</h3><br/>
+    <h4>If you want to go to the Car CRUD click on `Car` on the Navigation on top of this page.</h3><br/>
+    <h4>Or click <a asp-page="./Car/Car">Here</a> to go there!</h4><br/>
+    @* <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
 </div>

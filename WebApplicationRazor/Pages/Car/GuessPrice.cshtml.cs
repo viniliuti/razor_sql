@@ -25,23 +25,42 @@ namespace WebApplicationRazor.Pages.Car
 		public IActionResult OnGet(int? id)
 		{
 			if (id == null)
+				return IdNotFound(id);
+
+			try
 			{
-				return NotFound();
+				UpdateThisCar(id);
+			}
+			catch (Exception ex)
+			{
+				_notyf.Error(ex.Message, 20);
+				return RedirectToPage("./Car");
 			}
 
-			UpdateThisCar(id);
-
 			return Page();
+		}
+		private IActionResult IdNotFound(int? id)
+		{
+			_notyf.Error("Id: " + id + " not found.");
+			return RedirectToPage("./Car");
 		}
 
 		public IActionResult OnPostTryButton(int? id)
 		{
-			UpdateThisCar(id);
+			try
+			{
+				UpdateThisCar(id);
+			}
+			catch (Exception ex)
+			{
+				_notyf.Error(ex.Message, 20);
+				return RedirectToPage("./Car");
+			}
 
-			if (_price <= thisCar.Price + 5000
+			if (_price <= thisCar!.Price + 5000
 				& _price >= thisCar.Price - 5000)
 			{
-				_notyf.Success("You guessed the price correctly!!");
+				_notyf.Success("Great job! You guessed the price correctly!!");
 			}
 			else
 			{
@@ -61,8 +80,7 @@ namespace WebApplicationRazor.Pages.Car
 			}
 			else
 			{
-				_notyf.Error("There`s no car with the Id: " + id, 20);
-				_notyf.Error("Please go back to List!");
+				throw new Exception("There`s no car with the Id: " + id);
 			}
 		}
 	}
